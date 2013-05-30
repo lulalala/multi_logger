@@ -2,7 +2,7 @@ require "multi_logger/version"
 
 module MultiLogger
   class << self
-    def add_logger(name, path=nil)
+    def add_logger(name, path=nil, options={})
       name = name.to_s
       rails_logger_class = get_rails_logger_class()
 
@@ -14,6 +14,9 @@ module MultiLogger
           define_method name.to_sym do
             logger
           end
+        end
+        if options[:formatter]
+          logger.formatter = options[:formatter]
         end
         logger
       end

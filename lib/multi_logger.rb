@@ -2,14 +2,14 @@ require "multi_logger/version"
 
 module MultiLogger
   class << self
-    def add_logger(name, path=nil, options={})
+    def add_logger(name, options={})
       name = name.to_s
       rails_logger_class = get_rails_logger_class()
 
       if rails_logger_class.method_defined?(name)
         raise "'#{name}' is reserved in #{rails_logger_class} and can not be used as a log accessor name."
       else
-        logger = Logger.new(get_path(name, path))
+        logger = Logger.new(get_path(name, options[:path]))
         rails_logger_class.class_eval do
           define_method name.to_sym do
             logger

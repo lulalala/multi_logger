@@ -24,6 +24,21 @@ In Rails, you can access the logger by calling `logger.log_name` or `Rails.logge
 
 Note that log_name must not collide with existing method names in Rails logger, so names such as 'debug' or 'info' can not be used. You should try calling `add_logger` in Rails console to test if it is ok or raises an error.
 
+## Advanced
+
+You can assign formatter to loggers directly, or pass the formatter during setup:
+
+    class CustomFormatter
+      def call(severity, time, progname, msg)
+        formatted_severity = sprintf("%-5s",severity.to_s)
+        formatted_time = time.strftime("%Y-%m-%d %H:%M:%S")
+        "[#{formatted_severity} #{formatted_time}] #{msg.strip}\n"
+      end
+    end
+    formatter = CustomFormatter.new
+    MultiLogger.add_logger('mail', formatter:formatter)
+    MultiLogger.add_logger('user', formatter:formatter)
+
 ## Contributing
 
 1. Fork it

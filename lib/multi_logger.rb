@@ -15,6 +15,7 @@ module MultiLogger
             logger
           end
         end
+        logger
       end
     end
 

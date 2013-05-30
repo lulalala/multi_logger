@@ -36,6 +36,8 @@ module MultiLogger
         ActiveSupport::BufferedLogger
       elsif defined?(ActiveSupport::Logger)
         ActiveSupport::Logger
+      else
+        raise 'Rails logger not found'
       end
     end
   end

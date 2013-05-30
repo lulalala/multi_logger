@@ -7,13 +7,14 @@ module MultiLogger
 
       logger = Logger.new(get_path(name, path))
 
-      if self.respond_to? name
-        raise "'#{name}' is reserved and can not be used as a log name."
-      end
-
-      (class << self; self; end).instance_eval do
-        define_method name.to_sym do
-          logger
+      rails_logger_class = get_rails_logger_class()
+      if rails_logger_class.method_defined?(name)
+        raise "'#{name}' is reserved in #{rails_logger_class} and can not be used as a log name."
+      else
+        rails_logger_class.class_eval do
+          define_method name.to_sym do
+            logger
+          end
         end
       end
     end
@@ -30,13 +31,13 @@ module MultiLogger
         path += '.log'
       end
     end
-  end
-end
 
-module Rails
-  class << self
-    def loggers
-      MultiLogger
+    def get_rails_logger_class
+      if defined?(ActiveSupport::BufferedLogger)
+        ActiveSupport::BufferedLogger
+      elsif defined?(ActiveSupport::Logger)
+        ActiveSupport::Logger
+      end
     end
   end
 end

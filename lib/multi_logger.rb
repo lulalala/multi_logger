@@ -17,7 +17,7 @@ module MultiLogger
       logger = Logger.new(path)
 
       if self.respond_to? name
-        raise "Custom log name '#{name}' is reserved."
+        raise "'#{name}' is reserved and can not be used as a log name."
       end
 
       (class << self; self; end).instance_eval do

@@ -18,9 +18,17 @@ Or install it yourself as:
 
 ## Usage
 
-To setup a logger, create a initializer script like `[Rails.root]/config/initializers/logger.rb`. In the script, call `MultiLogger.add_logger(log_name)` to create new logger. For example, calling `MultiLogger.add_logger('mail')` will create a log file located at `log/mail.log`.
+To setup a logger, create an initializer script such as `[Rails.root]/config/initializers/logger.rb` with:
 
-In Rails, you can access the logger by calling `logger.log_name` or `Rails.logger.log_name`. For example, calling `logger.mail.debug('42')` will log the message in the mail log.
+    MultiLogger.add_logger('mail')
+
+This will create a log file located at `log/mail.log`.
+
+Then In Rails, you can log by calling the following:
+
+    Rails.logger.mail.debug('42')
+
+The `Rails.` reference can be omitted at the usual places in Rails (e.g. controllers and views).
 
 Note that log_name must not collide with existing method names in Rails logger, so names such as 'debug' or 'info' can not be used. You should try calling `add_logger` in Rails console to test if it is ok or raises an error.
 

@@ -28,14 +28,11 @@ Note that log_name must not collide with existing method names in Rails logger, 
 
 You can assign formatter to loggers directly, or pass the formatter during setup:
 
-    class CustomFormatter
-      def call(severity, time, progname, msg)
-        formatted_severity = sprintf("%-5s",severity.to_s)
-        formatted_time = time.strftime("%Y-%m-%d %H:%M:%S")
-        "[#{formatted_severity} #{formatted_time}] #{msg.strip}\n"
-      end
-    end
-    formatter = CustomFormatter.new
+    formatter = Proc.new{|severity, time, progname, msg|
+      formatted_severity = sprintf("%-5s",severity.to_s)
+      formatted_time = time.strftime("%Y-%m-%d %H:%M:%S")
+      "[#{formatted_severity} #{formatted_time} #{$$}] #{msg.to_s.strip}\n"
+    }
     MultiLogger.add_logger('mail', formatter:formatter)
     MultiLogger.add_logger('user', formatter:formatter)
 

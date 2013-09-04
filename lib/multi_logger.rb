@@ -27,10 +27,10 @@ module MultiLogger
       if path.nil?
         path = name.underscore
       end
-      unless path.include?('/')
+      if !path.include?('/')
         path = Rails.root.join('log',path).to_s
       end
-      unless path.end_with?('.log')
+      if !path.end_with?('.log')
         path += '.log'
       end
       path

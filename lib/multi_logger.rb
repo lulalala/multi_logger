@@ -9,7 +9,8 @@ module MultiLogger
       if rails_logger_class.method_defined?(name)
         raise "'#{name}' is reserved in #{rails_logger_class} and can not be used as a log accessor name."
       else
-        logger = Logger.new(*extract_options(name, options))
+        logger_name = options[:support_environments] ? "#{name}_#{Rails.env}" : name
+        logger = Logger.new(*extract_options(logger_name, options))
         rails_logger_class.class_eval do
           define_method name.to_sym do
             logger

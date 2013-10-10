@@ -44,6 +44,12 @@ You can assign formatter to loggers directly, or pass the formatter during setup
     MultiLogger.add_logger('mail', formatter:formatter)
     MultiLogger.add_logger('user', formatter:formatter)
 
+You can also create separate log file to each Rails environment:
+    MultiLogger.add_logger('mail', {formatter:formatter, support_environments:true})
+Or
+    MultiLogger.add_logger('mail', support_environments:true)
+For example if Rails.env == 'development', multi_logger will create mail_development.log file
+
 ## Contributing
 
 1. Fork it

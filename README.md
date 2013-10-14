@@ -44,6 +44,12 @@ You can assign formatter to loggers directly, or pass the formatter during setup
     MultiLogger.add_logger('mail', formatter:formatter)
     MultiLogger.add_logger('user', formatter:formatter)
 
+To set a different path to the log file, use `:path` option.
+For example, for setting a different file to each environment use:
+
+    MultiLogger.add_logger('mail', formatter:formatter, path:"mail_#{Rails.env}")
+
+
 ## Contributing
 
 1. Fork it

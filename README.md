@@ -46,7 +46,7 @@ You can assign formatter to loggers directly, or pass the formatter during setup
 
 You can give a custom name to the logger method instead of using the same name of the log file
 
-    MultiLogger.add_logger('inventory_process', alias_name:inventory, formatter:formatter)
+    MultiLogger.add_logger('inventory_process', alias_name:'inventory', formatter:formatter)
 
 So, you can log your entries by calling the following
 

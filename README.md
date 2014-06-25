@@ -44,6 +44,14 @@ You can assign formatter to loggers directly, or pass the formatter during setup
     MultiLogger.add_logger('mail', formatter:formatter)
     MultiLogger.add_logger('user', formatter:formatter)
 
+You can give a custom name to the logger method instead of using the same name of the log file
+
+    MultiLogger.add_logger('inventory_process', alias_name:inventory, formatter:formatter)
+
+So, you can log your entries by calling the following
+
+    Rails.logger.inventory.debug('42')
+
 To set a different path to the log file, use `:path` option.
 For example, for setting a different file to each environment use:
 

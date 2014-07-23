@@ -4,11 +4,14 @@ module MultiLogger
   class << self
     def add_logger(name, options={})
       name = name.to_s
+      # custom logger name.
+      file_name = options[:file_name].presence || name
+
       rails_logger_class = get_rails_logger_class()
 
       raise "'#{name}' is reserved in #{rails_logger_class} and can not be used as a log accessor name." if rails_logger_class.method_defined?(name)
 
-      logger = Logger.new(*extract_options(name, options))
+      logger = Logger.new(*extract_options(file_name, options))
       rails_logger_class.class_eval do
         define_method name.to_sym do
           logger

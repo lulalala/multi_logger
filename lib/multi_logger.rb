@@ -21,6 +21,8 @@ module MultiLogger
 
     # Computes log file path
     def get_path(name, path=nil)
+      return path if path == STDOUT
+      
       if path.nil?
         path = name.underscore
       end
